@@ -1,0 +1,12 @@
+{
+    "name": "kamalig/kamalig",
+    "description": "KAMALIG — Rice Supply Chain Management System",
+    "type": "project",
+    "require": {
+        "php": ">=8.0",
+        "phpmailer/phpmailer": "^6.9"
+    },
+    "config": {
+        "optimize-autoloader": true
+    }
+}

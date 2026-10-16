@@ -1,0 +1,2 @@
+# Libraries are loaded server-side only; never serve them over HTTP.
+Require all denied

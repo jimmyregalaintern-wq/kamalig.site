@@ -1,0 +1,33 @@
+# Uploaded documents are user-supplied files served as static content.
+# Nothing in this directory should ever be executed as a script, even if a
+# future change to the upload allowlist (includes/uploads.php) ever became
+# more permissive than it is today — this is a second, independent layer,
+# not the primary defense (that's the server-side MIME sniffing + forced
+# safe extension already enforced in handle_secure_document_upload()).
+
+# Apache 2.4+
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(php|phtml|php[0-9]?|phar|pl|py|cgi|sh|asp|aspx|exe)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+
+# Apache 2.2 fallback
+<IfModule !mod_authz_core.c>
+    <FilesMatch "\.(php|phtml|php[0-9]?|phar|pl|py|cgi|sh|asp|aspx|exe)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+
+# Belt-and-suspenders: even if the FilesMatch above is somehow bypassed,
+# tell Apache/PHP not to treat anything here as a PHP script.
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>

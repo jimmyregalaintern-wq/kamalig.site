@@ -1,0 +1,5 @@
+# These files are meant to be require_once'd by index.php files, not
+# requested directly — they contain DB connection logic and internal
+# helpers with no auth check of their own. Deny direct HTTP access as
+# defense-in-depth.
+Require all denied

@@ -1,0 +1,317 @@
+:root {
+  color-scheme: light;
+  font-family: Arial, sans-serif;
+  background: #f4f7f6;
+  color: #0f172a;
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: #f4f7f6; }
+a { color: inherit; text-decoration: none; }
+.app-shell { display: flex; min-height: 100vh; }
+.sidebar { width: 260px; background: linear-gradient(135deg, var(--kg-green), var(--kg-green-dark)); color: #fff; padding: 24px 16px; display: flex; flex-direction: column; gap: 20px; }
+.brand { display: flex; align-items: center; gap: 10px; }
+.brand h2 { margin: 0; font-size: 1.3rem; }
+.brand p { margin: 4px 0 0; opacity: 0.8; }
+.brand__mark { width: 36px; height: 36px; object-fit: contain; border-radius: 8px; background: rgba(255,255,255,0.9); padding: 3px; flex-shrink: 0; }
+.sidebar nav { display: flex; flex-direction: column; gap: 8px; }
+.nav-link { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px; color: #fff; opacity: 0.95; }
+.nav-link.active, .nav-link:hover { background: rgba(255,255,255,0.16); }
+.sidebar-footer { margin-top: auto; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.18); }
+.content { flex: 1; padding: 24px; }
+.topbar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px; }
+.page-card { background: #fff; border-radius: 16px; padding: 24px; box-shadow: 0 10px 30px rgba(15,23,42,0.06); }
+/* Auth / centered form */
+.auth-container { max-width: 420px; margin: 0 auto; padding: 24px 22px; border-radius: 20px; background: #fff; box-shadow: 0 20px 60px rgba(15,23,42,0.08); }
+.auth-container h2 { margin-top: 0; margin-bottom: 8px; font-size: 1.6rem; }
+.auth-note { margin-bottom: 16px; color: #475569; }
+
+.auth-page .content { padding: 0; }
+.auth-page .page-card { max-width: 520px; margin: 56px auto; padding: 0; box-shadow: none; background: transparent; }
+
+/* Stat card */
+.stat { font-size: 2rem; font-weight: 700; margin: 8px 0; color: var(--kg-text); }
+
+.grid { display: grid; gap: 16px; }
+.grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+.grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.grid-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 16px; }
+.btn { display: inline-block; padding: 10px 14px; border-radius: 8px; border: 0; cursor: pointer; font-weight: 600; }
+.btn-primary { background: var(--kg-green); color: #fff; }
+.btn-secondary { background: #e2e8f0; color: #0f172a; }
+.btn-danger { background: #fee2e2; color: #b91c1c; }
+.btn-sm { padding: 6px 10px; font-size: 0.85rem; }
+.badge { display: inline-block; padding: 3px 10px; border-radius: 100px; font-size: 0.8rem; font-weight: 600; }
+.badge-available { background: #dcfce7; color: #166534; }
+.badge-sold-out { background: #fef3c7; color: #92400e; }
+.badge-archived { background: #e2e8f0; color: #475569; }
+.badge-rejected { background: #fee2e2; color: #b91c1c; }
+.badge-info { background: #dbeafe; color: #1e40af; }
+.tracking-steps { display: flex; align-items: center; gap: 0; margin: 18px 0; flex-wrap: wrap; }
+.tracking-step { display: flex; align-items: center; gap: 8px; }
+.tracking-step__dot { width: 26px; height: 26px; border-radius: 50%; background: var(--kg-surface-soft); color: var(--kg-text-secondary); display: flex; align-items: center; justify-content: center; font-size: 0.8rem; font-weight: 700; flex-shrink: 0; }
+.tracking-step__label { font-weight: 600; color: var(--kg-text-secondary); font-size: 0.9rem; }
+.tracking-step.is-done .tracking-step__dot { background: var(--kg-green); color: #fff; }
+.tracking-step.is-done .tracking-step__label { color: var(--kg-text); }
+.tracking-step.is-current .tracking-step__dot { background: var(--kg-blue); color: #fff; }
+.tracking-step.is-current .tracking-step__label { color: var(--kg-blue); }
+.tracking-step__connector { width: 32px; height: 2px; background: var(--kg-border); margin: 0 6px; }
+.tracking-step__connector.is-done { background: var(--kg-green); }
+.form-group { margin-bottom: 14px; }
+label { display: block; margin-bottom: 6px; font-weight: 600; }
+input, select { width: 100%; padding: 10px 12px; border: 1px solid #cbd5e1; border-radius: 8px; }
+.muted { color: var(--kg-text-secondary); }
+.table { width: 100%; border-collapse: collapse; }
+.table th, .table td { padding: 10px; border-bottom: 1px solid #e2e8f0; text-align: left; }
+/* Wrap around every data table site-wide (see /table-responsive/ usage) so
+   wide tables scroll horizontally within the page-card on narrow screens
+   instead of squeezing columns unreadable or blowing out the page width. */
+.table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.table-responsive .table { min-width: 560px; }
+.table-responsive .table th { white-space: nowrap; }
+
+/* Stock listing photos — Inventory thumbnail, Marketplace card/detail, and
+   Compare all reuse these same three sizes so a listing's photo looks
+   consistent everywhere it appears. object-fit: cover keeps non-square
+   uploads from stretching; the placeholder falls back to the same sizing. */
+.stock-thumb { width: 48px; height: 48px; object-fit: cover; border-radius: 6px; border: 1px solid #e2e8f0; background: #f1f5f9; display: block; }
+.stock-photo { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px 10px 0 0; background: #f1f5f9; display: block; }
+.stock-photo-lg { width: 100%; max-height: 360px; object-fit: cover; border-radius: 12px; background: #f1f5f9; display: block; }
+
+.alert { padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; }
+.alert-error { background: #fee2e2; color: #b91c1c; }
+.alert-success { background: #dcfce7; color: #166534; }
+
+/* Styled confirmation modal — replaces browser confirm() dialogs
+   (assets/dashboard.js builds/shows this; see data-confirm-modal).
+   Named kg-confirm-* (not kg-modal-*) since .kg-modal is already used by
+   the row-actions popup component in dashboard.css — same prefix would
+   have silently clobbered one or the other. */
+.kg-confirm-overlay {
+    position: fixed; inset: 0; background: rgba(15, 23, 42, 0.5);
+    display: flex; align-items: center; justify-content: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 160ms ease;
+    padding: 16px;
+}
+.kg-confirm-overlay.is-open { opacity: 1; pointer-events: auto; }
+.kg-confirm-modal {
+    background: #fff; border-radius: 12px; padding: 24px; max-width: 420px; width: 100%;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.25);
+    transform: translateY(8px); transition: transform 160ms ease;
+}
+.kg-confirm-overlay.is-open .kg-confirm-modal { transform: translateY(0); }
+.kg-confirm-modal__title { font-size: 1.1rem; font-weight: 700; margin: 0 0 8px; color: #0f172a; }
+.kg-confirm-modal__message { margin: 0 0 20px; color: #475569; line-height: 1.5; }
+.kg-confirm-modal__actions { display: flex; justify-content: flex-end; gap: 8px; }
+
+/* Empty states — action-oriented (a message plus what to do next) rather
+   than a bare "No X found" (Phase 4). */
+.kg-empty-state { text-align: center; padding: 40px 20px; }
+.kg-empty-state__title { font-size: 1.1rem; font-weight: 600; margin: 0 0 6px; color: #0f172a; }
+.kg-empty-state .muted { margin-bottom: 16px; }
+@media (max-width: 900px) {
+  .app-shell { flex-direction: column; }
+  .sidebar { width: 100%; }
+  .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+}
+
+/* Enhanced auth page styles (matches provided design) */
+.auth-page body, .auth-page .content { min-height: 100vh; }
+.auth-page { background: linear-gradient(180deg, #eef7f1 0%, #f4f7f6 20%, #ffffff 100%); }
+.auth-hero { display: flex; align-items: center; justify-content: center; padding: 72px 20px; }
+.auth-card { width: min(440px, 100%); border-radius: 24px; padding: 40px 36px; background: rgba(255,255,255,0.96); box-shadow: 0 24px 65px rgba(38,115,77,0.12); backdrop-filter: blur(10px); border: 1px solid rgba(38,115,77,0.12); }
+.auth-card h1 { margin: 0 0 8px 0; text-align: left; font-size: 2rem; color: var(--kg-green-dark); }
+.auth-card p.lead { text-align: left; margin: 0 0 24px 0; color: #0f5133; font-size: 1rem; }
+.auth-brand { display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+.auth-brand .nav__mark { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; overflow: hidden; }
+.auth-brand .nav__mark img { width: 100%; height: 100%; object-fit: contain; }
+.auth-brand-name { font-family: var(--kg-font-display, 'Inter', sans-serif); font-size: 1.1rem; font-weight: 700; color: var(--kg-green-dark); }
+.auth-brand-subtitle { font-size: 0.85rem; color: #475569; }
+.form-control { width: 100%; padding: 14px 16px; border-radius: 16px; border: 1px solid rgba(203,213,225,0.7); background: rgba(255,255,255,0.92); margin-top: 8px; margin-bottom: 18px; }
+.btn-signin { width: 100%; padding: 14px; border-radius: 16px; background: var(--kg-green); color: #fff; font-weight: 700; border: 0; cursor: pointer; box-shadow: 0 14px 30px rgba(38,115,77,0.18); }
+.social-row { display: flex; flex-direction: column; gap: 10px; margin-top: 14px; }
+.social-btn { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 12px; background: rgba(255,255,255,0.7); border: 1px solid rgba(15,23,42,0.06); cursor: pointer; }
+.social-btn img { width: 18px; height: 18px; }
+.or-line { text-align: center; color: #9ca3af; font-size: 0.85rem; margin: 16px 0; }
+.auth-footer { display: flex; justify-content: space-between; align-items: center; gap: 16px; margin-top: 24px; font-size: 0.95rem; color: #475569; }
+.auth-footer a { color: var(--kg-green-dark); text-decoration: none; }
+.auth-footer--split { justify-content: space-between; }
+.auth-footer-link { font-weight: 700; }
+
+/* Input focus and small UI tweaks */
+.form-control:focus {
+  outline: none;
+  border-color: rgba(38,115,77,0.9);
+  box-shadow: 0 6px 18px rgba(38,115,77,0.08);
+  background: rgba(255,255,255,0.98);
+}
+.btn-signin:hover { transform: translateY(-1px); }
+
+/* Social button styles and provider colors */
+.social-btn { justify-content: center; font-weight: 600; }
+.social-btn svg { width: 18px; height: 18px; display: inline-block; }
+.social-btn.google { background: linear-gradient(180deg,#ffffff,#f3f4f6); border: 1px solid rgba(0,0,0,0.06); }
+.social-btn.apple { background: linear-gradient(180deg,#0f172a,#111827); color: #fff; }
+.social-btn.meta { background: linear-gradient(180deg,#eef2ff,#f8fafc); border: 1px solid rgba(99,102,241,0.12); }
+
+/* Ensure primary sign-in uses system green */
+.btn-signin { background: var(--kg-green); box-shadow: 0 10px 28px rgba(38,115,77,0.14); }
+.social-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(15,23,42,0.08); }
+
+.auth-card small.hint { display: block; text-align: center; color: #9ca3af; margin-top: 8px; }
+
+@media (max-width: 480px) {
+  .auth-card { width: 92%; padding: 22px; }
+}
+
+/* Mobile tweaks: improved spacing, readable sizes, larger tap targets */
+@media (max-width: 640px) {
+  .auth-hero { padding: 40px 16px; }
+  .auth-container { padding: 18px; }
+  .auth-card { width: 100%; padding: 20px; border-radius: 14px; }
+  .auth-card h1 { font-size: 1.25rem; line-height: 1.2; }
+  .auth-card p.lead { font-size: 0.95rem; }
+  .form-control { padding: 12px; border-radius: 12px; }
+  .form-group { margin-bottom: 12px; }
+  .btn-signin { padding: 12px; font-size: 1rem; border-radius: 12px; }
+  .hint { display: block; margin-top: 12px; }
+  select.form-control { height: 44px; }
+  /* reduce large shadows on small screens */
+  .auth-card { box-shadow: 0 8px 28px rgba(38,115,77,0.06); }
+}
+
+/* Landing page styles */
+.landing-hero { display: flex; align-items: center; justify-content: center; padding: 80px 20px; min-height: 72vh; background: linear-gradient(180deg, #f4f7f6 0%, #eef7f1 60%); }
+.landing-card { max-width: 920px; width: 100%; border-radius: 14px; padding: 48px; text-align: center; background: #ffffff; box-shadow: 0 18px 50px rgba(4,120,87,0.06); border: 1px solid rgba(4,120,87,0.06); }
+.landing-card h1 { font-size: 2.2rem; margin: 0 0 10px 0; color: #065f46; }
+.landing-card p.lead { margin: 0 0 18px 0; color: #0f5133; font-size: 1.05rem; }
+.landing-card .btn { min-width: 160px; }
+
+@media (max-width: 700px) {
+  .landing-card { padding: 28px; }
+  .landing-card h1 { font-size: 1.6rem; }
+}
+
+@media print {
+  .sidebar, .topbar, .no-print { display: none !important; }
+  .app-shell, .content, .page-card { margin: 0; padding: 0; }
+}
+
+/* Phase 6: Notifications bell (topbar) and floating AI Assistant widget.
+   Both use the checkbox-hack pattern (a hidden checkbox + <label for="">
+   toggles) so open/close needs no JavaScript. */
+.notif-bell { position: relative; }
+.notif-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.notif-bell__button { display: inline-flex; align-items: center; justify-content: center; position: relative; width: 40px; height: 40px; border-radius: 50%; background: #e2e8f0; cursor: pointer; font-size: 1.1rem; }
+.notif-bell__badge { position: absolute; top: -4px; right: -4px; background: #b91c1c; color: #fff; font-size: 0.65rem; font-weight: 700; line-height: 1; padding: 3px 5px; border-radius: 100px; min-width: 16px; text-align: center; }
+.notif-dropdown { display: none; position: absolute; top: 48px; right: 0; width: 320px; max-height: 420px; overflow-y: auto; background: #fff; border: 1px solid #e2e8f0; border-radius: 12px; box-shadow: 0 16px 40px rgba(15,23,42,0.14); z-index: 40; }
+.notif-toggle:checked ~ .notif-dropdown { display: block; }
+.notif-dropdown__header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; border-bottom: 1px solid #e2e8f0; }
+.notif-dropdown__markall { background: none; border: 0; color: var(--kg-green); font-weight: 600; font-size: 0.8rem; cursor: pointer; padding: 0; }
+.notif-dropdown__empty { padding: 16px 14px; margin: 0; }
+.notif-dropdown__item { border-bottom: 1px solid #f1f5f9; }
+.notif-dropdown__item-btn { display: block; width: 100%; text-align: left; background: none; border: 0; padding: 10px 14px; cursor: pointer; }
+.notif-dropdown__item-btn:hover { background: #f8fafc; }
+.notif-dropdown__title { display: block; font-weight: 600; font-size: 0.88rem; color: #0f172a; }
+.notif-dropdown__msg { display: block; font-size: 0.8rem; color: #64748b; margin-top: 2px; }
+.notif-dropdown__viewall { display: block; text-align: center; padding: 10px; font-size: 0.85rem; font-weight: 600; color: var(--kg-green); border-top: 1px solid var(--kg-border); }
+
+.assistant-toggle { position: absolute; opacity: 0; width: 1px; height: 1px; pointer-events: none; }
+.assistant-widget { position: fixed; right: 20px; bottom: 20px; z-index: 50; }
+.assistant-bubble { display: flex; align-items: center; justify-content: center; width: 56px; height: 56px; border-radius: 50%; background: var(--kg-green); color: #fff; font-size: 1.5rem; cursor: pointer; box-shadow: 0 12px 28px rgba(38,115,77,0.35); }
+.assistant-panel { display: none; flex-direction: column; position: absolute; right: 0; bottom: 70px; width: 340px; max-height: 480px; background: #fff; border-radius: 16px; border: 1px solid #e2e8f0; box-shadow: 0 20px 50px rgba(15,23,42,0.18); overflow: hidden; }
+.assistant-toggle:checked ~ .assistant-widget .assistant-panel { display: flex; }
+.assistant-panel__header { display: flex; align-items: center; justify-content: space-between; padding: 12px 14px; background: var(--kg-green); color: #fff; }
+.assistant-panel__close { cursor: pointer; font-size: 1.3rem; line-height: 1; padding: 0 4px; }
+.assistant-panel__body { flex: 1; overflow-y: auto; padding: 12px 14px; display: flex; flex-direction: column; gap: 10px; min-height: 120px; max-height: 260px; }
+.assistant-panel__empty { display: flex; flex-direction: column; gap: 10px; padding: 4px 0; }
+.assistant-panel__empty .muted { margin: 0; }
+.assistant-panel__prompt-row { display: flex; flex-wrap: wrap; gap: 6px; }
+.assistant-panel__prompt { appearance: none; border: 1px solid #dbe7d0; background: #f0f9eb; color: #365314; border-radius: 999px; padding: 5px 8px; font-size: 0.72rem; font-weight: 600; cursor: pointer; }
+.assistant-panel__prompt:hover { background: #e5f3d4; }
+.assistant-msg--right { text-align: right; }
+.assistant-msg--left { text-align: left; }
+.assistant-msg__label { font-size: 0.72rem; margin-bottom: 2px; }
+.assistant-msg__bubble { display: inline-block; text-align: left; max-width: 85%; padding: 8px 12px; border-radius: 12px; background: #f1f5f9; font-size: 0.88rem; }
+.assistant-msg--right .assistant-msg__bubble { background: #dcfce7; }
+.assistant-panel__form { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid #e2e8f0; align-items: flex-end; }
+.assistant-panel__form textarea { flex: 1; padding: 8px 10px; border-radius: 10px; resize: none; font-family: inherit; }
+.voice-input-btn { flex-shrink: 0; width: 34px; height: 34px; border-radius: 50%; border: 1px solid #e2e8f0; background: #f8fafc; cursor: pointer; font-size: 1rem; line-height: 1; display: flex; align-items: center; justify-content: center; padding: 0; }
+.voice-input-btn:hover { background: #f1f5f9; }
+.voice-input-btn--active { background: var(--kg-green); border-color: var(--kg-green); box-shadow: 0 0 0 3px rgba(38,115,77,0.25); animation: voice-pulse 1.2s ease-in-out infinite; }
+.voice-input-btn[hidden] { display: none; }
+@keyframes voice-pulse { 0%, 100% { box-shadow: 0 0 0 3px rgba(38,115,77,0.25); } 50% { box-shadow: 0 0 0 6px rgba(38,115,77,0.15); } }
+.assistant-panel__footer { text-align: center; font-size: 0.75rem; padding: 6px 0 10px; margin: 0; }
+@media (max-width: 480px) {
+  /* .notif-dropdown / .profile-dropdown mobile sizing moved to
+     assets/dashboard.css (see the @media (max-width: 480px) block there) —
+     they need position:fixed + viewport-relative insets, not a width tied
+     to their trigger icon's position, since the icon isn't at the true
+     screen edge (there are 1-2 more icons to its right in the topbar).
+     Keeping them together with .profile-dropdown's base width:224px rule
+     (also in dashboard.css) avoids the two files fighting over which one
+     wins the cascade at mobile widths — that fight is what caused the
+     "jumps to center" bug. */
+  .assistant-panel { width: calc(100vw - 40px); }
+}
+
+/* --- Assistant: in-place chat (assets/assistant.js) --- */
+.assistant-msg__bubble--live { white-space: pre-wrap; }
+.assistant-msg--escalated .assistant-msg__bubble { background: #fef3c7; }
+.assistant-panel__form.is-busy button[type="submit"] { opacity: 0.6; cursor: wait; }
+.assistant-dot { display: inline-block; width: 6px; height: 6px; margin: 0 2px; border-radius: 50%; background: #94a3b8; animation: assistant-blink 1.2s infinite ease-in-out; }
+.assistant-dot:nth-child(2) { animation-delay: 0.2s; }
+.assistant-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes assistant-blink { 0%, 80%, 100% { opacity: 0.25; } 40% { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) { .assistant-dot { animation: none; opacity: 0.6; } }
+
+/* ---------- Auth pages (forgot / reset / verify-otp / pending-verification) ----------
+   One centered card on the ivory page. The wrapper chain (app-shell > content > page-card >
+   auth-hero) used to add a gradient box, 56px margin and 72px padding, which pinned the card
+   to the top and left a large empty area underneath. */
+body.auth-page { background: var(--kg-bg); }
+.auth-page .app-shell { min-height: 100vh; min-height: 100dvh; }
+.auth-page .content {
+  display: flex; align-items: center; justify-content: center;
+  width: 100%; min-height: 100vh; min-height: 100dvh; padding: 24px 16px;
+}
+.auth-page .page-card { width: 100%; max-width: 520px; margin: 0; padding: 0; border: 0; background: transparent; box-shadow: none; }
+.auth-hero.auth-page { background: none; padding: 0; min-height: 0; }
+.auth-card {
+  width: min(440px, 100%); margin: 0 auto; padding: 36px 32px;
+  background: #fff; border: 1px solid var(--kg-border, #DAD9CB); border-radius: 12px;
+  box-shadow: 0 12px 32px -16px rgba(23,77,53,0.22); backdrop-filter: none;
+}
+.auth-card h1 { font-size: 1.75rem; font-weight: 700; line-height: 1.2; letter-spacing: -0.015em; color: var(--kg-text, #252C27); }
+.auth-card p.lead { color: var(--kg-text-secondary, #566058); font-size: 1rem; line-height: 1.6; }
+.auth-brand-subtitle { color: var(--kg-text-secondary, #566058); }
+.auth-card label { font-weight: 600; font-size: 0.875rem; color: var(--kg-text, #252C27); }
+.form-control {
+  min-height: 46px; padding: 11px 14px; border-radius: 8px; border: 1.5px solid #C4CABC;
+  background: #fff; font: inherit; color: var(--kg-text, #252C27);
+}
+.form-control::placeholder { color: #7C857D; }
+.form-control:focus { border-color: var(--kg-green, #26734D); box-shadow: 0 0 0 3px rgba(38,115,77,0.22); background: #fff; }
+.btn-signin {
+  min-height: 48px; padding: 12px 24px; border-radius: 8px; font: inherit; font-weight: 600; font-size: 1rem;
+  background: var(--kg-green, #26734D); color: #fff; box-shadow: none; transition: background-color .2s;
+}
+.btn-signin:hover { background: var(--kg-green-dark, #174D35); transform: none; }
+.social-btn { border-radius: 8px; min-height: 46px; background: #fff; border: 1.5px solid #C4CABC; font: inherit; font-weight: 600; }
+.social-btn.google { background: #fff; }
+.social-btn:hover { transform: none; box-shadow: none; border-color: var(--kg-green, #26734D); }
+.auth-footer { color: var(--kg-text-secondary, #566058); }
+.auth-footer a { color: var(--kg-green, #26734D); text-decoration: underline; text-underline-offset: 2px; }
+.auth-footer-link { font-weight: 600; }
+.auth-card small.hint, .or-line { color: var(--kg-text-secondary, #566058); }
+@media (max-width: 640px) {
+  .auth-page .content { padding: 20px 14px; }
+  .auth-card { padding: 24px 20px; border-radius: 12px; box-shadow: none; }
+  .auth-card h1 { font-size: 1.5rem; }
+  .btn-signin { padding: 12px 20px; border-radius: 8px; }
+  .form-control { padding: 11px 14px; border-radius: 8px; }
+}
+
+/* OTP code field: spaced digits while typing, normal-size placeholder (it used to be clipped) */
+.auth-card .otp-input { font-family: var(--kg-font-sans, 'Inter', sans-serif); font-size: 1.5rem; font-weight: 700; letter-spacing: 0.4em; text-indent: 0.4em; font-variant-numeric: tabular-nums; }
+.auth-card .otp-input::placeholder { font-size: 1rem; font-weight: 400; letter-spacing: 0; text-indent: 0; }

@@ -1,0 +1,9 @@
+/* KAMALIG shared fonts: self-hosted, latin subset. Manrope = headings, Inter = body/UI.
+   Peso sign (U+20B1) comes from its own tiny file and is only downloaded when a price is shown. */
+@font-face{font-family:'KG Display';src:url('fonts/kg-display-latin.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+@font-face{font-family:'KG Sans';src:url('fonts/kg-sans-latin.woff2') format('woff2');font-weight:100 900;font-style:normal;font-display:swap;
+  unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+/* Peso sign only (U+20B1) -- listed first in both stacks; downloaded only when a price is on the page */
+@font-face{font-family:'KG Peso';src:url('fonts/kg-peso.woff2') format('woff2');font-weight:200 800;font-style:normal;font-display:swap;unicode-range:U+20B1}
+

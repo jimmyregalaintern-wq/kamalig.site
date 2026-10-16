@@ -1,0 +1,4 @@
+Inter Variable   - Copyright The Inter Project Authors. SIL Open Font License 1.1 (https://openfontlicense.org)
+Manrope Variable - Copyright The Manrope Project Authors. SIL Open Font License 1.1
+Both are redistributed unmodified as WOFF2 from the @fontsource-variable npm packages.
+kg-sans-latin.woff2 = Inter (latin) | kg-display-latin.woff2 = Manrope (latin) | kg-peso.woff2 = Manrope latin-ext (used ONLY for the peso sign U+20B1).

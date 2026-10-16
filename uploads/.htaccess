@@ -1,0 +1,33 @@
+# KAMALIG - the uploads/ folder is NOT a public file area any more.
+# Compliance and shipment documents live in private storage (outside public_html)
+# and are opened through documents/file/ after a permission check.
+# The only thing served from here is uploads/stock-images/ (marketplace photos).
+Options -Indexes
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_URI} !/uploads/stock-images/ [NC]
+    RewriteRule ^ - [F,L]
+</IfModule>
+
+# Second layer, in case mod_rewrite is unavailable: never run scripts from here.
+<IfModule mod_authz_core.c>
+    <FilesMatch "\.(php|phtml|php[0-9]?|phar|pl|py|cgi|sh|asp|aspx|exe)$">
+        Require all denied
+    </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+    <FilesMatch "\.(php|phtml|php[0-9]?|phar|pl|py|cgi|sh|asp|aspx|exe)$">
+        Order allow,deny
+        Deny from all
+    </FilesMatch>
+</IfModule>
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>

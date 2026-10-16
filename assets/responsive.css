@@ -1,0 +1,115 @@
+/* ==========================================================================
+   KAMALIG — responsive hardening layer
+   Loaded LAST (see includes/header.php) so it can correct the phone/tablet
+   layout without touching the desktop design in styles.css / dashboard.css.
+   ========================================================================== */
+
+/* ---- Global safety nets ------------------------------------------------- */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+img, svg, video, canvas, iframe { max-width: 100%; }
+/* A single over-wide element must never make the whole page scroll sideways
+   (that is what made phones zoom the dashboard out and look "broken"). */
+body { overflow-x: clip; }
+/* styles.css gives input/select width:100% but forgot textarea, so textareas
+   rendered as small stubs inside forms. Flex rows that set flex:1 still win. */
+textarea { width: 100%; box-sizing: border-box; font-family: inherit; }
+/* Grid/flex children default to min-width:auto and refuse to shrink below
+   their content; that is what pushed the dashboard to 835px on a 360px phone. */
+.content, .page-card, .card, .kg-card, .kg-row-2 > *, .kg-kpi-grid > * { min-width: 0; }
+
+/* The flow-arrow icon is drawn pointing DOWN, but on desktop the steps run
+   left-to-right and the arrow colour was nearly invisible (same as the card
+   border). Point it right and make it readable. */
+.kg-flow-arrow { color: #a9a48c; }
+.kg-flow-arrow svg { transform: rotate(-90deg); }
+
+/* ---- Dashboard: the actual cause of the sideways scroll ----------------- */
+@media (max-width: 1280px) {
+  .kg-row-2, .kg-row-2--reverse { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 700px) {
+  /* Supply-flow diagram: stack the steps vertically instead of forcing a
+     5-step row (5 x 130px) into a phone. Arrows turn to point down. */
+  .kg-flow { flex-direction: column; overflow: visible; padding-bottom: 4px; }
+  .kg-flow-node { min-width: 0; }
+  .kg-flow-arrow { width: auto; height: 26px; }
+  .kg-flow-arrow svg { transform: none; } /* stacked: the icon already points down */
+}
+
+/* ---- Wide tables: keep the swipe-to-scroll, but make it discoverable ----- */
+.table-responsive, .kg-table-wrap {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  background:
+    linear-gradient(to right, #fff 30%, rgba(255,255,255,0)) left center / 28px 100% no-repeat local,
+    linear-gradient(to left,  #fff 30%, rgba(255,255,255,0)) right center / 28px 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%,   rgba(47,47,47,.22), rgba(47,47,47,0)) left center / 10px 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(47,47,47,.22), rgba(47,47,47,0)) right center / 10px 100% no-repeat scroll;
+}
+
+/* ---- Phones and small tablets ------------------------------------------- */
+@media (max-width: 700px) {
+  /* Leave room at the bottom so the floating chat bubble never covers the
+     last button or line of a page. */
+  .content { padding: 12px 12px 92px; }
+  .page-card .card { padding: 12px; }
+
+  /* Comfortable tap targets (was 28–32px on many buttons/pills). */
+  .btn, button.btn, a.btn { min-height: 40px; }
+  .btn-sm { min-height: 36px; }
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="file"]),
+  select { min-height: 42px; font-size: 16px; } /* 16px stops iOS zooming on focus */
+  textarea { font-size: 16px; min-height: 96px; }
+  .kg-pill, .kg-link-btn, .assistant-panel__prompt { min-height: 36px; }
+  .sidebar-collapse-btn { width: 36px; height: 36px; }
+
+  /* Floating assistant: smaller bubble, panel fits the screen. */
+  .assistant-widget { right: 14px; bottom: 14px; }
+  .assistant-bubble { width: 48px; height: 48px; font-size: 1.25rem; }
+  .assistant-panel { position: fixed; left: 10px; right: 10px; bottom: 72px; width: auto; max-height: 72vh; }
+
+  /* Text that was under ~11px is unreadable on a phone. */
+  .nav-group-label, .brand__subtitle, .kg-kpi__label, .kg-flow-node__label { font-size: 11.5px; }
+  .badge--local, .hero__floatcard-head { font-size: 11.5px; }
+  footer a { display: inline-block; padding: 6px 0; }
+}
+
+/* ---- Top bar on phones: one tidy row instead of two ragged ones ---------- */
+@media (max-width: 480px) {
+  .topbar { flex-wrap: nowrap; align-items: center; gap: 8px; }
+  .topbar-heading { flex: 1 1 auto; min-width: 0; flex-wrap: nowrap; gap: 8px; }
+  .topbar-heading h1 { font-size: 1.05rem; line-height: 1.2; min-width: 0; overflow-wrap: anywhere; }
+  .topbar-actions { flex: 0 0 auto; flex-wrap: nowrap; gap: 4px; }
+  .topbar-user__chevron { display: none; }
+  .icon-btn, .notif-bell__button, .topbar-user__avatar,
+  .topbar-search__btn { width: 36px; height: 36px; }
+  /* While the search box is open it takes over the row. */
+  /* 100vw minus: bar padding (24) + four 36px icons (144) + gaps (12) + input margin (8) + slack (8) */
+  .topbar-search.is-open .topbar-search__input { width: calc(100vw - 196px); min-width: 96px; }
+  .topbar:has(.topbar-search.is-open) .topbar-heading { display: none; }
+  .topbar:has(.topbar-search.is-open) .topbar-actions { flex: 1 1 auto; justify-content: flex-end; }
+  /* Dropdowns are pinned to the screen so they can never hang off an edge. */
+  .notif-dropdown, .profile-dropdown {
+    position: fixed; left: 10px; right: 10px; top: 62px; width: auto; max-width: none;
+  }
+}
+/* Very narrow phones (320px): let the bar wrap rather than crush the title. */
+@media (max-width: 339px) {
+  .topbar { flex-wrap: wrap; }
+  .topbar-heading { flex-basis: 100%; }
+  .notif-dropdown, .profile-dropdown { top: 118px; } /* bar is two rows tall here */
+}
+
+/* The menu button is the main way to navigate on a phone: make it easy to hit. */
+@media (max-width: 900px) {
+  .mobile-menu-btn { width: 40px; height: 40px; }
+  #kg-analysis-close, .kg-analysis-close { min-width: 36px; min-height: 36px; }
+}
+
+/* Long ids (e.g. "Order order_1791716719_7eb7b378") must wrap instead of widening the page. */
+.content h1, .content h2, .content h3, .content h4 { overflow-wrap: anywhere; }
+
+/* Order/request ids are long (e.g. req_1791716719_6225fcb2): let them wrap so the useful columns stay visible. */
+@media (max-width: 700px) {
+  .table--idfirst th:first-child, .table--idfirst td:first-child { width: 92px; min-width: 92px; max-width: 92px; word-break: break-all; font-size: .78rem; line-height: 1.3; }
+}

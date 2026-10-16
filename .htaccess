@@ -1,0 +1,36 @@
+# KAMALIG — Hostinger / Apache / LiteSpeed hardening
+Options -Indexes
+DirectoryIndex index.php
+
+RewriteEngine On
+
+# Force HTTPS (not for local development). Works behind a proxy/CDN too: if the
+# proxy already says the visitor used https, do nothing.
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https [NC]
+RewriteCond %{HTTP_HOST} !^(localhost|127\.0\.0\.1)(:\d+)?$ [NC]
+RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+# Send www to the main address (needed for Google sign-in sessions)
+RewriteCond %{HTTP_HOST} ^www\.kamalig\.site$ [NC]
+RewriteRule ^(.*)$ https://kamalig.site/$1 [R=301,L]
+
+# Never serve config, dumps, docs, or dependency manifests
+<FilesMatch "(^\.|\.(env|sql|md|diff|log|bak|sh|ini|lock)$|^composer\.(json|lock)$)">
+    Require all denied
+</FilesMatch>
+
+# Basic security headers
+<IfModule mod_headers.c>
+    Header always set X-Content-Type-Options "nosniff"
+    Header always set X-Frame-Options "SAMEORIGIN"
+    Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>
+
+# BEGIN KAMALIG-HARDENING (install_update.php)
+<IfModule mod_headers.c>
+    Header always set Strict-Transport-Security "max-age=31536000" env=HTTPS
+    Header always set Permissions-Policy "camera=(), geolocation=(), microphone=(self)"
+    Header always set Content-Security-Policy "default-src 'self'; script-src 'self' 'unsafe-inline' https://challenges.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com data:; img-src 'self' data: blob: https:; connect-src 'self'; frame-src https://challenges.cloudflare.com; frame-ancestors 'self'; base-uri 'self'; form-action 'self' https://accounts.google.com; object-src 'none'"
+</IfModule>
+# END KAMALIG-HARDENING

@@ -1,0 +1,8 @@
+# These scripts (seed_demo_passwords.php, import_sql.php,
+# seed_stock_movement_history.php) are meant to be run from the CLI only —
+# `php scripts/whatever.php`. seed_demo_passwords.php in particular resets
+# demo accounts (including admin@example.com) to a known password, so
+# letting this folder be reachable over HTTP would let anyone log in as
+# admin. Deny all web access; see also the php_sapi_name() guard added
+# inside each script itself.
+Require all denied
